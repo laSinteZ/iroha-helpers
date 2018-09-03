@@ -93,7 +93,7 @@ const sign = (transaction, privateKeyHex) => {
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
   let s = new Signature()
-  s.setPubkey(publicKey)
+  s.setPublicKey(publicKey)
   s.setSignature(signatory)
 
   let signedTransactionWithSignature = cloneDeep(transaction)
