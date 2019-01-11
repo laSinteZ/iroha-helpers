@@ -2,26 +2,33 @@ import { Buffer } from 'buffer'
 import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
-import forEach from 'lodash.foreach'
 import * as Commands from './proto/commands_pb'
 import { TxList } from './proto/endpoint_pb'
 import { Signature } from './proto/primitive_pb'
 import Transaction from './proto/transaction_pb'
 import { capitalize } from './util.js'
 
+/**
+ * Returns new transactions
+ * @returns {Object} transaction
+ */
 const emptyTransaction = () => new Transaction.Transaction()
 
 /**
  * Returns payload from the transaction or a new one
  * @param {Object} transaction
  */
-const getOrCreatePayload = transaction => transaction.hasPayload() ? cloneDeep(transaction.getPayload()) : new Transaction.Transaction.Payload()
+const getOrCreatePayload = transaction => transaction.hasPayload()
+  ? cloneDeep(transaction.getPayload())
+  : new Transaction.Transaction.Payload()
 
 /**
  * Returns reducedPayload from the payload or a new one
  * @param {Object} payload
  */
-const getOrCreateReducedPayload = payload => payload.hasReducedPayload() ? cloneDeep(payload.getReducedPayload()) : new Transaction.Transaction.Payload.ReducedPayload()
+const getOrCreateReducedPayload = payload => payload.hasReducedPayload()
+  ? cloneDeep(payload.getReducedPayload())
+  : new Transaction.Transaction.Payload.ReducedPayload()
 
 // TODO: Create corner cases for AddPeer, setPermission
 /**
@@ -29,13 +36,14 @@ const getOrCreateReducedPayload = payload => payload.hasReducedPayload() ? clone
  * @param {Object} transaction base transaction
  * @param {String} commandName name of a commandName. For reference, visit http://iroha.readthedocs.io/en/latest/api/commands.html
  * @param {Object} params command parameters. For reference, visit http://iroha.readthedocs.io/en/latest/api/commands.html
+ * @returns {Object} transaction with commands
  */
 const addCommand = (transaction, commandName, params) => {
   let payloadCommand = new Commands[capitalize(commandName)]()
 
-  forEach(params, (value, key) => {
+  for (let [key, value] of Object.entries(params)) {
     payloadCommand['set' + capitalize(key)](value)
-  })
+  }
 
   let command = new Commands.Command()
 
