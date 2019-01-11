@@ -93,8 +93,8 @@ const sign = (transaction, privateKeyHex) => {
   const signatory = signTransaction(payloadHash, publicKey, privateKey)
 
   let s = new Signature()
-  s.setPublicKey(publicKey)
-  s.setSignature(signatory)
+  s.setPublicKey(publicKey.toString('hex'))
+  s.setSignature(signatory.toString('hex'))
 
   let signedTransactionWithSignature = cloneDeep(transaction)
   signedTransactionWithSignature.addSignatures(s, signedTransactionWithSignature.getSignaturesList.length)
@@ -103,9 +103,8 @@ const sign = (transaction, privateKeyHex) => {
 }
 
 /**
- * Returns hash of a transaction
+ * Returns buffer hash of a transaction
  * @param {Object} transaction base transaction
- * @param {String} privateKeyHex private key of query's creator in hex.
  * @returns {Buffer} transaction hash
  */
 const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
@@ -117,7 +116,7 @@ const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().seri
  * @returns {Array} Transactions with all necessary fields
  */
 const addBatchMeta = (transactions, type) => {
-  let reducedHashes = transactions.map(tx => Buffer.from(sha3.array(tx.getPayload().getReducedPayload().serializeBinary())))
+  let reducedHashes = transactions.map(tx => sha3(tx.getPayload().getReducedPayload().serializeBinary()))
 
   let batchMeta = new Transaction.Transaction.Payload.BatchMeta()
   batchMeta.setReducedHashesList(reducedHashes)
