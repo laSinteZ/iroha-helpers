@@ -32,7 +32,7 @@ Promise.all([
   }, {
     accountId: 'admin@test',
     key: 'jason',
-    value: 'golden'
+    value: 'statham'
   }),
   queries.getAccount({
     privateKey: adminPriv,
@@ -40,6 +40,40 @@ Promise.all([
     queryService
   }, {
     accountId: 'admin@test'
+  }),
+  queries.getAccountDetail({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }, {
+    accountId: 'admin@test'
+  }),
+  queries.getSignatories({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }, {
+    accountId: 'admin@test'
+  }),
+  queries.getRoles({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }),
+  queries.getAccount({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }, {
+    accountId: 'admin@test'
+  }),
+  queries.getAccountTransactions({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }, {
+    accountId: 'admin@test',
+    pageSize: 5
   })
 ])
   .then(a => console.log(a))
