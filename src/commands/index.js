@@ -125,8 +125,10 @@ function addPeer (commandOptions, { address, peerKey }) {
       txHelper.emptyTransaction(),
       'addPeer',
       {
-        address,
-        peerKey
+        peer: {
+          address,
+          peerKey
+        }
       }
     )
   )

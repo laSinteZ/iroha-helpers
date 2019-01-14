@@ -42,7 +42,14 @@ const addCommand = (transaction, commandName, params) => {
   let payloadCommand = new Commands[capitalize(commandName)]()
 
   for (let [key, value] of Object.entries(params)) {
-    payloadCommand['set' + capitalize(key)](value)
+    if ('set' + capitalize(key) === 'setPeer') {
+      let peer = new Commands.Peer()
+      peer.setAddress(value.address)
+      peer.setPeerKey(value.peerKey)
+      payloadCommand['set' + capitalize(key)](peer)
+    } else {
+      payloadCommand['set' + capitalize(key)](value)
+    }
   }
 
   let command = new Commands.Command()
