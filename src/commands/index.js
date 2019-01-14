@@ -289,11 +289,50 @@ function setAccountDetail (commandOptions, { accountId, key, value }) {
   )
 }
 
-function setAccountQuorum (commandOptions, { accountId, quorum }) {}
+function setAccountQuorum (commandOptions, { accountId, quorum }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'setAccountQuorum',
+      {
+        accountId,
+        quorum
+      }
+    )
+  )
+}
 
-function substractAssetQuantity (commandOptions, { assetId, amount }) {}
+function substractAssetQuantity (commandOptions, { assetId, amount }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'substractAssetQuantity',
+      {
+        assetId,
+        amount
+      }
+    )
+  )
+}
 
-function transferAsset (commandOptions, { fromAccountId, toAccountId, assetId, description, amount }) {}
+function transferAsset (commandOptions, { fromAccountId, toAccountId, assetId, description, amount }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'transferAsset',
+      {
+        fromAccountId,
+        toAccountId,
+        assetId,
+        description,
+        amount
+      }
+    )
+  )
+}
 
 export default {
   addAssetQuantity,
