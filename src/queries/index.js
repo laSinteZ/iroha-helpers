@@ -85,6 +85,231 @@ function getAccount (queryOptions, { accountId }) {
   )
 }
 
+function getSignatories (queryOptions, { accountId }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getSignatories',
+      {
+        accountId
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'SIGNATORIES_RESPONSE') {
+        return reject(new Error(`Query response error: expected=SIGNATORIES_RESPONSE, actual=${responseName}`))
+      }
+
+      const account = response.getSignatoriesResponse().toObject().keysList
+      resolve(account)
+    }
+  )
+}
+
+function getTransactions (queryOptions, { transactionsHashes }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getTransactions',
+      {
+        transactionsHashes
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'TRANSACTIONS_RESPONSE') {
+        return reject(new Error(`Query response error: expected=TRANSACTIONS_RESPONSE, actual=${responseName}`))
+      }
+
+      const transactions = response.getTransactionsResponse()
+      resolve(transactions)
+    }
+  )
+}
+
+function getPendingTransactions (queryOptions) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getPendingTransactions',
+      {}
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'TRANSACTIONS_RESPONSE') {
+        return reject(new Error(`Query response error: expected=TRANSACTIONS_RESPONSE, actual=${responseName}`))
+      }
+
+      const transactions = response.getTransactionsResponse().toObject().transactionsList
+      resolve(transactions)
+    }
+  )
+}
+
+function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHash }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getAccountTransactions',
+      {
+        accountId,
+        paginationMeta: {
+          pageSize,
+          firstTxHash
+        }
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'TRANSACTIONS_PAGE_RESPONSE') {
+        return reject(new Error(`Query response error: expected=TRANSACTIONS_PAGE_RESPONSE, actual=${responseName}`))
+      }
+
+      const transactions = response.getTransactionsPageResponse().toObject()
+      resolve(transactions)
+    }
+  )
+}
+
+function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSize, firstTxHash }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'GetAccountAssetTransactions',
+      {
+        accountId,
+        assetId,
+        paginationMeta: {
+          pageSize,
+          firstTxHash
+        }
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'TRANSACTIONS_PAGE_RESPONSE') {
+        return reject(new Error(`Query response error: expected=TRANSACTIONS_PAGE_RESPONSE, actual=${responseName}`))
+      }
+
+      const transactions = response.getTransactionsPageResponse().toObject()
+      resolve(transactions)
+    }
+  )
+}
+
+function getAccountAssets (queryOptions, { accountId }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getAccountAssets',
+      {
+        accountId
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'ACCOUNT_ASSETS_RESPONSE') {
+        return reject(new Error(`Query response error: expected=ACCOUNT_ASSETS_RESPONSE, actual=${responseName}`))
+      }
+
+      const assets = response.getAccountAssetsResponse().toObject().accountAssetsList
+      resolve(assets)
+    }
+  )
+}
+
+function getAccountDetail (queryOptions, { accountId, key, writerId }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getAccountDetail',
+      {
+        accountId
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'ACCOUNT_DETAIL_RESPONSE') {
+        return reject(new Error(`Query response error: expected=ACCOUNT_DETAIL_RESPONSE, actual=${responseName}`))
+      }
+
+      const transactions = JSON.parse(response.getAccountDetailResponse().toObject().detail)
+      resolve(transactions)
+    }
+  )
+}
+
+function getAssetInfo (queryOptions, { assetId }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getAssetInfo',
+      {
+        assetId
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'ASSET_RESPONSE') {
+        return reject(new Error(`Query response error: expected=ASSET_RESPONSE, actual=${responseName}`))
+      }
+
+      const info = response.getAssetResponse().toObject().asset
+      resolve(info)
+    }
+  )
+}
+
+function getRoles (queryOptions) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getRoles',
+      {}
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'ROLES_RESPONSE') {
+        return reject(new Error(`Query response error: expected=ROLES_RESPONSE, actual=${responseName}`))
+      }
+
+      const roles = response.getRolesResponse().toObject().rolesList
+      resolve(roles)
+    }
+  )
+}
+
+function getRolePermissions (queryOptions, { roleId }) {
+  return sendQuery(
+    queryOptions,
+    queryHelper.addQuery(
+      queryHelper.emptyQuery(),
+      'getRolePermissions',
+      {
+        roleId
+      }
+    ),
+    (resolve, reject, responseName, response) => {
+      if (responseName !== 'ROLE_PERMISSIONS_RESPONSE') {
+        return reject(new Error(`Query response error: expected=ROLE_PERMISSIONS_RESPONSE, actual=${responseName}`))
+      }
+
+      const permissions = response.getRolePermissionsResponse().toObject().permissionsList
+      resolve(permissions)
+    }
+  )
+}
+
 export default {
-  getAccount
+  getAccount,
+  getSignatories,
+  getTransactions,
+  getPendingTransactions,
+  getAccountTransactions,
+  getAccountAssetTransactions,
+  getAccountAssets,
+  getAccountDetail,
+  getAssetInfo,
+  getRoles,
+  getRolePermissions
 }
