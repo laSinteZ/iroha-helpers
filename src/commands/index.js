@@ -104,13 +104,61 @@ function signWithArrayOfKeys (tx, privateKeys) {
   return tx
 }
 
-function addAssetQuantity (commandOptions, { assetId, amount }) {}
+function addAssetQuantity (commandOptions, { assetId, amount }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'addAssetQuantity',
+      {
+        assetId,
+        amount
+      }
+    )
+  )
+}
 
-function addPeer (commandOptions, { address, peerKey }) {}
+function addPeer (commandOptions, { address, peerKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'addPeer',
+      {
+        address,
+        peerKey
+      }
+    )
+  )
+}
 
-function addSignatory (commandOptions, { accountId, publicKey }) {}
+function addSignatory (commandOptions, { accountId, publicKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'addSignatory',
+      {
+        accountId,
+        publicKey
+      }
+    )
+  )
+}
 
-function appendRole (commandOptions, { accountId, roleName }) {}
+function appendRole (commandOptions, { accountId, roleName }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'appendRole',
+      {
+        accountId,
+        roleName
+      }
+    )
+  )
+}
 
 function createAccount (commandOptions, { accountName, domainId, publicKey }) {
   return command(
@@ -127,19 +175,104 @@ function createAccount (commandOptions, { accountName, domainId, publicKey }) {
   )
 }
 
-function createAsset (commandOptions, { assetName, domainId, precision }) {}
+function createAsset (commandOptions, { assetName, domainId, precision }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'createAsset',
+      {
+        assetName,
+        domainId,
+        precision
+      }
+    )
+  )
+}
 
-function createDomain (commandOptions, { domainId, defaultRole }) {}
+function createDomain (commandOptions, { domainId, defaultRole }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'createDomain',
+      {
+        domainId,
+        defaultRole
+      }
+    )
+  )
+}
 
-function createRole (commandOptions, { roleName, rolePermission }) {}
+function createRole (commandOptions, { roleName, rolePermission }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'createRole',
+      {
+        roleName,
+        rolePermission
+      }
+    )
+  )
+}
 
-function detachRole (commandOptions, { accountId, roleName }) {}
+function detachRole (commandOptions, { accountId, roleName }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'detachRole',
+      {
+        accountId,
+        roleName
+      }
+    )
+  )
+}
 
-function grandPermission (commandOptions, { accountId, grantablePermissionName }) {}
+function grandPermission (commandOptions, { accountId, grantablePermissionName }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'grandPermission',
+      {
+        accountId,
+        grantablePermissionName
+      }
+    )
+  )
+}
 
-function removeSignatory (commandOptions, { accountId, publicKey }) {}
+function removeSignatory (commandOptions, { accountId, publicKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'removeSignatory',
+      {
+        accountId,
+        publicKey
+      }
+    )
+  )
+}
 
-function revokePermission (commandOptions, { accountId, grantablePermissionName }) {}
+function revokePermission (commandOptions, { accountId, grantablePermissionName }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'revokePermission',
+      {
+        accountId,
+        grantablePermissionName
+      }
+    )
+  )
+}
 
 function setAccountDetail (commandOptions, { accountId, key, value }) {
   return command(
