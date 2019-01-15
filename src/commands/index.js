@@ -206,7 +206,7 @@ function createDomain (commandOptions, { domainId, defaultRole }) {
   )
 }
 
-function createRole (commandOptions, { roleName, rolePermission }) {
+function createRole (commandOptions, { roleName, permissionsList }) {
   return command(
     commandOptions,
     txHelper.addCommand(
@@ -214,7 +214,7 @@ function createRole (commandOptions, { roleName, rolePermission }) {
       'createRole',
       {
         roleName,
-        rolePermission
+        permissionsList
       }
     )
   )
