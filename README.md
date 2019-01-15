@@ -12,21 +12,43 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
  3. Run `grpc-web-proxy` for iroha https://gitlab.com/snippets/1713665
  4. `yarn build && node example`
 
+## Commands
+- [x] [addAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#add-asset-quantity)
+- [x] [addPeer](https://iroha.readthedocs.io/en/latest/api/commands.html#add-peer)
+- [x] [addSignatory](https://iroha.readthedocs.io/en/latest/api/commands.html#add-signatory)
+- [x] [appendRole](https://iroha.readthedocs.io/en/latest/api/commands.html#append-role)
+- [x] [createAccount](https://iroha.readthedocs.io/en/latest/api/commands.html#create-account)
+- [x] [createAsset](https://iroha.readthedocs.io/en/latest/api/commands.html#create-asset)
+- [x] [createDomain](https://iroha.readthedocs.io/en/latest/api/commands.html#create-domain)
+- [x] [createRole](https://iroha.readthedocs.io/en/latest/api/commands.html#create-role)
+- [x] [detachRole](https://iroha.readthedocs.io/en/latest/api/commands.html#detach-role)
+- [x] [grandPermission](https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission)
+- [x] [removeSignatory](https://iroha.readthedocs.io/en/latest/api/commands.html#remove-signatory)
+- [x] [revokePermission](https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission)
+- [x] [setAccountDetail](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-detail)
+- [x] [setAccountQuorum](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-quorum)
+- [x] [substractAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity)
+- [x] [transferAsset](https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset)
+
+## Queries
+- [x] [getAccount](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account)
+- [x] [getSignatories](https://iroha.readthedocs.io/en/latest/api/queries.html#get-signatories)
+- [x] [getTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-transactions)
+- [x] [getPendingTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-pending-transactions)
+- [x] [getAccountTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-transactions)
+- [x] [getAccountAssetTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-asset-transactions)
+- [x] [getAccountAssets](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-assets)
+- [x] [getAccountDetail](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account-detail)
+- [x] [getAssetInfo](https://iroha.readthedocs.io/en/latest/api/queries.html#get-asset-info)
+- [x] [getRoles](https://iroha.readthedocs.io/en/latest/api/queries.html#get-roles)
+- [x] [getRolePermissions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-role-permissions)
+
 ## Known issues
  - Please be careful: API might and WILL change.
- - Please note that some of commands (e.g. addPeer, createRole) are not
-   supported yet. We will support them after migrating to Protobuf.js.
-   Stay tuned!
 
 ## TODO
-
- - [x] Create an example
- - [x] Implement Batch of Transactions
  - [ ] Field validation
  - [ ] Add tests
  - [ ] Integration tests with Iroha
- - [x] Add ability to use native GRPC, not grpc-web-client.
- - [ ] Use Protobuf.js
- - [ ] Implement all Transactions/Queries
  - [ ] Add more documentation
  - [ ] Minify/Uglify
