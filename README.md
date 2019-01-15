@@ -3,7 +3,7 @@
 
 # iroha-helpers
 
-Some functions which will help you to interact with [Hyperledger Iroha](https://github.com/hyperledger/iroha) from your JS program
+Some functions which will help you to interact with [Hyperledger Iroha](https://github.com/hyperledger/iroha) from your JS program.
 
 ## Trying an example
 
@@ -12,7 +12,73 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
  3. Run `grpc-web-proxy` for iroha https://gitlab.com/snippets/1713665
  4. `yarn build && node example`
 
+## Instalation
+Using npm:
+``` bash
+$ npm i iroha-helpers
+```
+Using yarn:
+``` bash
+$ yarn add iroha-helpers
+```
+
+In javascript:
+``` javascript
+import grpc from 'grpc'
+import {
+  QueryService_v1Client,
+  CommandService_v1Client
+} from '../iroha-helpers/lib/proto/endpoint_grpc_pb'
+import { commands, queries } from 'iroha-helpers'
+
+const IROHA_ADDRESS = 'localhost:50051'
+const adminPriv =
+  'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'
+
+const commandService = new CommandService_v1Client(
+  IROHA_ADDRESS,
+  grpc.credentials.createInsecure()
+)
+
+const queryService = new QueryService_v1Client(
+  IROHA_ADDRESS,
+  grpc.credentials.createInsecure()
+)
+
+Promise.all([
+  commands.setAccountDetail({
+    privateKeys: [adminPriv],
+    creatorAccountId: 'admin@test',
+    quorum: 1,
+    commandService
+  }, {
+    accountId: 'admin@test',
+    key: 'jason',
+    value: 'statham'
+  }),
+  queries.getAccountDetail({
+    privateKey: adminPriv,
+    creatorAccountId: 'admin@test',
+    queryService
+  }, {
+    accountId: 'admin@test'
+  })
+])
+  .then(a => console.log(a))
+  .catch(e => console.error(e))
+```
+
 ## Commands
+For usage of any command you need to provide `commandOptions` as a first argument.
+``` javascript
+const commandOptions = {
+  privateKeys: [''], // Array of private keys in hex format
+  creatorAccountId: '', // Account id, ex. admin@test
+  quorum: 1,
+  commandService: null
+}
+```
+
 - [x] [addAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#add-asset-quantity)
 - [x] [addPeer](https://iroha.readthedocs.io/en/latest/api/commands.html#add-peer)
 - [x] [addSignatory](https://iroha.readthedocs.io/en/latest/api/commands.html#add-signatory)
@@ -31,6 +97,15 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
 - [x] [transferAsset](https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset)
 
 ## Queries
+For usage of any query you need to provide `queryOptions` as a first argument.
+``` javascript
+const queryOptions = {
+  privateKey: '', // Private key in hex format
+  creatorAccountId: '', // Account id, ex. admin@test
+  queryService: null
+}
+```
+
 - [x] [getAccount](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account)
 - [x] [getSignatories](https://iroha.readthedocs.io/en/latest/api/queries.html#get-signatories)
 - [x] [getTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-transactions)
