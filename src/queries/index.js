@@ -13,6 +13,7 @@ const DEFAULT_OPTIONS = {
 
 /**
  * wrapper function of queries
+ * @param {Object} queryOptions
  * @param {Object} query
  * @param {Function} onResponse
  * @param {Number} timeoutLimit
@@ -64,6 +65,12 @@ function sendQuery (
   })
 }
 
+/**
+ * getAccount
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ */
 function getAccount (queryOptions, { accountId }) {
   return sendQuery(
     queryOptions,
@@ -85,6 +92,12 @@ function getAccount (queryOptions, { accountId }) {
   )
 }
 
+/**
+ * getSignatories
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ */
 function getSignatories (queryOptions, { accountId }) {
   return sendQuery(
     queryOptions,
@@ -106,6 +119,12 @@ function getSignatories (queryOptions, { accountId }) {
   )
 }
 
+/**
+ * getTransactions
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String[]} args.transactionsHashes
+ */
 function getTransactions (queryOptions, { transactionsHashes }) {
   return sendQuery(
     queryOptions,
@@ -127,6 +146,10 @@ function getTransactions (queryOptions, { transactionsHashes }) {
   )
 }
 
+/**
+ * getPendingTransactions
+ * @param {Object} queryOptions
+ */
 function getPendingTransactions (queryOptions) {
   return sendQuery(
     queryOptions,
@@ -146,6 +169,14 @@ function getPendingTransactions (queryOptions) {
   )
 }
 
+/**
+ * getAccountTransactions
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {Number} args.pageSize
+ * @property {String | undefined} args.firstTxHash
+ */
 function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHash }) {
   return sendQuery(
     queryOptions,
@@ -171,6 +202,15 @@ function getAccountTransactions (queryOptions, { accountId, pageSize, firstTxHas
   )
 }
 
+/**
+ * getAccountAssetTransactions
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.assetId
+ * @property {Number} args.pageSize
+ * @property {String | undefined} args.firstTxHash
+ */
 function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSize, firstTxHash }) {
   return sendQuery(
     queryOptions,
@@ -197,6 +237,12 @@ function getAccountAssetTransactions (queryOptions, { accountId, assetId, pageSi
   )
 }
 
+/**
+ * getAccountAssets
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ */
 function getAccountAssets (queryOptions, { accountId }) {
   return sendQuery(
     queryOptions,
@@ -218,6 +264,14 @@ function getAccountAssets (queryOptions, { accountId }) {
   )
 }
 
+/**
+ * getAccountDetail
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.key
+ * @property {String} args.writerId
+ */
 function getAccountDetail (queryOptions, { accountId, key, writerId }) {
   return sendQuery(
     queryOptions,
@@ -239,6 +293,12 @@ function getAccountDetail (queryOptions, { accountId, key, writerId }) {
   )
 }
 
+/**
+ * getAssetInfo
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {String} args.assetId
+ */
 function getAssetInfo (queryOptions, { assetId }) {
   return sendQuery(
     queryOptions,
@@ -260,6 +320,10 @@ function getAssetInfo (queryOptions, { assetId }) {
   )
 }
 
+/**
+ * getRoles
+ * @param {Object} queryOptions
+ */
 function getRoles (queryOptions) {
   return sendQuery(
     queryOptions,
@@ -279,6 +343,12 @@ function getRoles (queryOptions) {
   )
 }
 
+/**
+ * getRolePermissions
+ * @param {Object} queryOptions
+ * @param {Object} args
+ * @property {Number} args.roleId
+ */
 function getRolePermissions (queryOptions, { roleId }) {
   return sendQuery(
     queryOptions,

@@ -10,6 +10,12 @@ const DEFAULT_OPTIONS = {
   commandService: null
 }
 
+/**
+ * wrapper function of queries
+ * @param {Object} commandOptions
+ * @param {Object} transactions
+ * @param {Number} timeoutLimit
+ */
 function command (
   {
     privateKeys,
@@ -104,6 +110,13 @@ function signWithArrayOfKeys (tx, privateKeys) {
   return tx
 }
 
+/**
+ * addAssetQuantity
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.assetId
+ * @property {Number} args.amount
+ */
 function addAssetQuantity (commandOptions, { assetId, amount }) {
   return command(
     commandOptions,
@@ -118,6 +131,13 @@ function addAssetQuantity (commandOptions, { assetId, amount }) {
   )
 }
 
+/**
+ * addPeer
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.address
+ * @property {String} args.peerKey
+ */
 function addPeer (commandOptions, { address, peerKey }) {
   return command(
     commandOptions,
@@ -134,6 +154,13 @@ function addPeer (commandOptions, { address, peerKey }) {
   )
 }
 
+/**
+ * addSignatory
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.publicKey
+ */
 function addSignatory (commandOptions, { accountId, publicKey }) {
   return command(
     commandOptions,
@@ -148,6 +175,13 @@ function addSignatory (commandOptions, { accountId, publicKey }) {
   )
 }
 
+/**
+ * appendRole
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.roleName
+ */
 function appendRole (commandOptions, { accountId, roleName }) {
   return command(
     commandOptions,
@@ -162,6 +196,14 @@ function appendRole (commandOptions, { accountId, roleName }) {
   )
 }
 
+/**
+ * createAccount
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountName
+ * @property {String} args.domainId
+ * @property {String} args.publicKey
+ */
 function createAccount (commandOptions, { accountName, domainId, publicKey }) {
   return command(
     commandOptions,
@@ -177,6 +219,14 @@ function createAccount (commandOptions, { accountName, domainId, publicKey }) {
   )
 }
 
+/**
+ * createAsset
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.assetName
+ * @property {String} args.domainId
+ * @property {Number} args.precision
+ */
 function createAsset (commandOptions, { assetName, domainId, precision }) {
   return command(
     commandOptions,
@@ -192,6 +242,13 @@ function createAsset (commandOptions, { assetName, domainId, precision }) {
   )
 }
 
+/**
+ * createDomain
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.domainId
+ * @property {String} args.defaultRole
+ */
 function createDomain (commandOptions, { domainId, defaultRole }) {
   return command(
     commandOptions,
@@ -206,6 +263,13 @@ function createDomain (commandOptions, { domainId, defaultRole }) {
   )
 }
 
+/**
+ * createRole
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.roleName
+ * @property {Number[]} args.permissionsList
+ */
 function createRole (commandOptions, { roleName, permissionsList }) {
   return command(
     commandOptions,
@@ -220,6 +284,13 @@ function createRole (commandOptions, { roleName, permissionsList }) {
   )
 }
 
+/**
+ * detachRole
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.roleName
+ */
 function detachRole (commandOptions, { accountId, roleName }) {
   return command(
     commandOptions,
@@ -234,6 +305,13 @@ function detachRole (commandOptions, { accountId, roleName }) {
   )
 }
 
+/**
+ * grandPermission
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.grantablePermissionName
+ */
 function grandPermission (commandOptions, { accountId, grantablePermissionName }) {
   return command(
     commandOptions,
@@ -248,6 +326,13 @@ function grandPermission (commandOptions, { accountId, grantablePermissionName }
   )
 }
 
+/**
+ * removeSignatory
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.publicKey
+ */
 function removeSignatory (commandOptions, { accountId, publicKey }) {
   return command(
     commandOptions,
@@ -262,6 +347,13 @@ function removeSignatory (commandOptions, { accountId, publicKey }) {
   )
 }
 
+/**
+ * revokePermission
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.grantablePermissionName
+ */
 function revokePermission (commandOptions, { accountId, grantablePermissionName }) {
   return command(
     commandOptions,
@@ -276,6 +368,14 @@ function revokePermission (commandOptions, { accountId, grantablePermissionName 
   )
 }
 
+/**
+ * setAccountDetail
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {String} args.key
+ * @property {String} args.value
+ */
 function setAccountDetail (commandOptions, { accountId, key, value }) {
   return command(
     commandOptions,
@@ -291,6 +391,13 @@ function setAccountDetail (commandOptions, { accountId, key, value }) {
   )
 }
 
+/**
+ * setAccountQuorum
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.accountId
+ * @property {Number} args.quorum
+ */
 function setAccountQuorum (commandOptions, { accountId, quorum }) {
   return command(
     commandOptions,
@@ -305,6 +412,13 @@ function setAccountQuorum (commandOptions, { accountId, quorum }) {
   )
 }
 
+/**
+ * substractAssetQuantity
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.assetId
+ * @property {Number} args.amount
+ */
 function substractAssetQuantity (commandOptions, { assetId, amount }) {
   return command(
     commandOptions,
@@ -319,6 +433,16 @@ function substractAssetQuantity (commandOptions, { assetId, amount }) {
   )
 }
 
+/**
+ * transferAsset
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.fromAccountId
+ * @property {String} args.toAccountId
+ * @property {String} args.assetId
+ * @property {String} args.description
+ * @property {Number} args.amount
+ */
 function transferAsset (commandOptions, { fromAccountId, toAccountId, assetId, description, amount }) {
   return command(
     commandOptions,
