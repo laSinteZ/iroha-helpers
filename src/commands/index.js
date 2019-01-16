@@ -116,6 +116,7 @@ function signWithArrayOfKeys (tx, privateKeys) {
  * @param {Object} args
  * @property {String} args.assetId
  * @property {Number} args.amount
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-asset-quantity
  */
 function addAssetQuantity (commandOptions, { assetId, amount }) {
   return command(
@@ -137,6 +138,7 @@ function addAssetQuantity (commandOptions, { assetId, amount }) {
  * @param {Object} args
  * @property {String} args.address
  * @property {String} args.peerKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-peer
  */
 function addPeer (commandOptions, { address, peerKey }) {
   return command(
@@ -160,6 +162,7 @@ function addPeer (commandOptions, { address, peerKey }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#add-signatory
  */
 function addSignatory (commandOptions, { accountId, publicKey }) {
   return command(
@@ -181,6 +184,7 @@ function addSignatory (commandOptions, { accountId, publicKey }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.roleName
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#append-role
  */
 function appendRole (commandOptions, { accountId, roleName }) {
   return command(
@@ -203,6 +207,7 @@ function appendRole (commandOptions, { accountId, roleName }) {
  * @property {String} args.accountName
  * @property {String} args.domainId
  * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-account
  */
 function createAccount (commandOptions, { accountName, domainId, publicKey }) {
   return command(
@@ -226,6 +231,7 @@ function createAccount (commandOptions, { accountName, domainId, publicKey }) {
  * @property {String} args.assetName
  * @property {String} args.domainId
  * @property {Number} args.precision
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-asset
  */
 function createAsset (commandOptions, { assetName, domainId, precision }) {
   return command(
@@ -248,6 +254,7 @@ function createAsset (commandOptions, { assetName, domainId, precision }) {
  * @param {Object} args
  * @property {String} args.domainId
  * @property {String} args.defaultRole
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-domain
  */
 function createDomain (commandOptions, { domainId, defaultRole }) {
   return command(
@@ -269,6 +276,7 @@ function createDomain (commandOptions, { domainId, defaultRole }) {
  * @param {Object} args
  * @property {String} args.roleName
  * @property {Number[]} args.permissionsList
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#create-role
  */
 function createRole (commandOptions, { roleName, permissionsList }) {
   return command(
@@ -290,6 +298,7 @@ function createRole (commandOptions, { roleName, permissionsList }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.roleName
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#detach-role
  */
 function detachRole (commandOptions, { accountId, roleName }) {
   return command(
@@ -311,6 +320,7 @@ function detachRole (commandOptions, { accountId, roleName }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.grantablePermissionName
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#grant-permission
  */
 function grandPermission (commandOptions, { accountId, grantablePermissionName }) {
   return command(
@@ -332,6 +342,7 @@ function grandPermission (commandOptions, { accountId, grantablePermissionName }
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-signatory
  */
 function removeSignatory (commandOptions, { accountId, publicKey }) {
   return command(
@@ -353,6 +364,7 @@ function removeSignatory (commandOptions, { accountId, publicKey }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {String} args.grantablePermissionName
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#revoke-permission
  */
 function revokePermission (commandOptions, { accountId, grantablePermissionName }) {
   return command(
@@ -375,6 +387,7 @@ function revokePermission (commandOptions, { accountId, grantablePermissionName 
  * @property {String} args.accountId
  * @property {String} args.key
  * @property {String} args.value
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-detail
  */
 function setAccountDetail (commandOptions, { accountId, key, value }) {
   return command(
@@ -397,6 +410,7 @@ function setAccountDetail (commandOptions, { accountId, key, value }) {
  * @param {Object} args
  * @property {String} args.accountId
  * @property {Number} args.quorum
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-quorum
  */
 function setAccountQuorum (commandOptions, { accountId, quorum }) {
   return command(
@@ -418,6 +432,7 @@ function setAccountQuorum (commandOptions, { accountId, quorum }) {
  * @param {Object} args
  * @property {String} args.assetId
  * @property {Number} args.amount
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity
  */
 function substractAssetQuantity (commandOptions, { assetId, amount }) {
   return command(
@@ -442,6 +457,7 @@ function substractAssetQuantity (commandOptions, { assetId, amount }) {
  * @property {String} args.assetId
  * @property {String} args.description
  * @property {Number} args.amount
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset
  */
 function transferAsset (commandOptions, { fromAccountId, toAccountId, assetId, description, amount }) {
   return command(
