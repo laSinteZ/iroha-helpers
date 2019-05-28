@@ -103,10 +103,10 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
     .then(statuses => {
       const statusCheck = statuses.some(s => requiredStatuses.includes(s))
       if (statusCheck) {
-        Promise.resolve()
+        return Promise.resolve()
       }
 
-      Promise.reject(
+      return Promise.reject(
         new Error(`Command response error: expected=${requiredStatuses}, actual=${statuses}`)
       )
     })
