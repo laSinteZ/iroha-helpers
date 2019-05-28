@@ -111,7 +111,7 @@ function sendTransactions (txs, txClient, timeoutLimit, requiredStatuses = [
       }
 
       Promise.reject(
-        new Error(`Expected: ${requiredStatuses}, actual: ${statuses}`)
+        new Error(`Command response error: expected=${requiredStatuses}, actual=${statuses}`)
       )
     })
 }
