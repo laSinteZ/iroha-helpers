@@ -1,8 +1,8 @@
 import txHelper from './txHelper'
 import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
 
-import { from, Observable, throwError } from 'rxjs'
-import { map, concatMap, take, scan, toArray, filter, tap } from 'rxjs/operators'
+import { from, Observable } from 'rxjs'
+import { map, concatMap, toArray } from 'rxjs/operators'
 
 function _listToTorii (txs, txClient, timeoutLimit) {
   const txList = txHelper.createTxListFromArray(txs)
@@ -36,8 +36,6 @@ function _listToTorii (txs, txClient, timeoutLimit) {
 }
 
 function fromStream (stream) {
-  stream.pause()
-
   return new Observable((observer) => {
     function dataHandler (data) {
       observer.next(data)
@@ -49,8 +47,6 @@ function fromStream (stream) {
 
     stream.on('data', dataHandler)
     stream.on('end', endHandler)
-
-    stream.resume()
   })
 }
 
