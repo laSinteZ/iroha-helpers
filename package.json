@@ -1,6 +1,6 @@
 {
   "name": "iroha-helpers",
-  "version": "0.6.17",
+  "version": "0.6.17-beta.5",
   "description": "Some helpers function for transaction/query generation for Hyperledger Iroha",
   "main": "lib/index.js",
   "repository": {
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "eslint": "^5.15.3",
