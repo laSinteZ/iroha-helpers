@@ -29,67 +29,13 @@ function _listToTorii (txs, txClient, timeoutLimit) {
   })
 }
 
-function _getTxStatus (hash, txClient) {
-  return new Promise((resolve, reject) => {
-    const request = new TxStatusRequest()
-    request.setTxHash(hash.toString('hex'))
-    txClient.status(request, (err, data) => {
-      if (err) {
-        return reject(err)
-      }
-
-      return resolve(data)
-    })
-  })
-}
-
 function _handleStream (hash, txClient) {
   const request = new TxStatusRequest()
   request.setTxHash(hash.toString('hex'))
   return txClient.statusStream(request)
 }
 
-// function _statusChecker (hash, txClient, requiredStatusesStr) {
-//   const TIMEOUT_LIMIT = 5000
-//   const terminalStatuses = [
-//     TxStatus.STATELESS_VALIDATION_FAILED,
-//     TxStatus.STATEFUL_VALIDATION_FAILED,
-//     TxStatus.COMMITTED,
-//     TxStatus.MST_EXPIRED,
-//     TxStatus.NOT_RECEIVED,
-//     TxStatus.REJECTED
-//   ]
-//   const requiredStatuses = requiredStatusesStr.map(s => TxStatus[s])
-
-//   const isTerminal = (status) => terminalStatuses.includes(status)
-//   const isRequired = (status) => requiredStatuses.includes(status)
-
-//   return new Promise((resolve, reject) => {
-//     const cheker = setInterval((startDate) => {
-//       _getTxStatus(hash, txClient)
-//         .then(tx => {
-//           const status = tx.getTxStatus()
-//           if (isTerminal(status) || isRequired(status)) {
-//             clearInterval(cheker)
-//             resolve(tx)
-//           }
-
-//           const diffTime = Date.now() - startDate
-
-//           if (diffTime > TIMEOUT_LIMIT) {
-//             clearInterval(cheker)
-//             reject(tx)
-//           }
-//         })
-//         .catch(err => {
-//           clearInterval(cheker)
-//           reject(err)
-//         })
-//     }, 1 * 1000, Date.now())
-//   })
-// }
-
-function fromStream (stream, requiredStatusesStr) {
+function _fromStream (stream, requiredStatusesStr) {
   const terminalStatuses = [
     TxStatus.STATELESS_VALIDATION_FAILED,
     TxStatus.STATEFUL_VALIDATION_FAILED,
@@ -100,13 +46,24 @@ function fromStream (stream, requiredStatusesStr) {
   ]
   const requiredStatuses = requiredStatusesStr.map(s => TxStatus[s])
 
+  const successStatuses = [
+    TxStatus.COMMITTED,
+    ...requiredStatuses
+  ]
+
   const isTerminal = (status) => terminalStatuses.includes(status)
   const isRequired = (status) => requiredStatuses.includes(status)
+  const isError = (status) => !successStatuses.includes(status)
 
   return new Promise((resolve, reject) => {
     const dataHandler = (tx) => {
-      if (isTerminal(tx.getTxStatus()) || isRequired(tx.getTxStatus())) {
-        resolve({ tx, status: true })
+      const status = tx.getTxStatus()
+      if (isTerminal(status) || isRequired(status)) {
+        resolve({
+          tx,
+          status: true,
+          error: isError(status)
+        })
       }
     }
 
@@ -127,13 +84,15 @@ async function _streamCheker (hash, txClient, requiredStatusesStr) {
   let result = null
 
   while (isChecking) {
-    result = await fromStream(_handleStream(hash, txClient), requiredStatusesStr)
+    result = await _fromStream(
+      _handleStream(hash, txClient),
+      requiredStatusesStr
+    )
     if (result.status) {
       isChecking = false
     }
   }
 
-  console.log('YAY', result)
   return result
 }
 
@@ -167,20 +126,32 @@ function getProtoEnumName (obj, key, value) {
 }
 
 function sendTransactions (txs, txClient, timeoutLimit, requiredStatusesStr = [
-  'MST_PENDING',
   'COMMITTED'
 ]) {
   return _listToTorii(txs, txClient, timeoutLimit)
     .then(hashes => {
       return new Promise((resolve, reject) => {
-        const requests = hashes.map(h => _streamCheker(h, txClient, requiredStatusesStr))
+        const requests = hashes
+          .map(h => _streamCheker(h, txClient, requiredStatusesStr))
 
         Promise.all(requests)
           .then(res => {
-            const status = res.map(r => getProtoEnumName(TxStatus, 'iroha.protocol.TxStatus', r.tx.getTxStatus()))
-            return res.some(r => r.status) ? resolve() : reject(
-              new Error(`Command response error: expected=${requiredStatusesStr}, actual=${status}`)
-            )
+            const status = res
+              .map(r =>
+                getProtoEnumName(
+                  TxStatus,
+                  'iroha.protocol.TxStatus',
+                  r.tx.getTxStatus()
+                )
+              )
+
+            return res.some(r => r.error)
+              ? reject(
+                new Error(
+                  `Command response error: expected=${requiredStatusesStr}, actual=${status}`
+                )
+              )
+              : resolve()
           })
       })
     })
