@@ -64,7 +64,6 @@ function _fromStream ({ hash, txClient }, requiredStatusesStr) {
     }
 
     const resetTimer = () => {
-      console.log('clearTimeout, setTimeout')
       clearTimeout(timer)
       timer = setTimeout(connect, 5000)
     }
@@ -72,7 +71,6 @@ function _fromStream ({ hash, txClient }, requiredStatusesStr) {
     const dataHandler = (tx) => {
       resetTimer()
       const status = tx.getTxStatus()
-      console.log('New status: ', status)
       if (isTerminal(status) || isRequired(status)) {
         clearTimeout(timer)
         resolve({
