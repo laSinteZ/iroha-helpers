@@ -3,7 +3,7 @@ import grpc from 'grpc'
 import {
   QueryService_v1Client,
   CommandService_v1Client
-} from '../lib/proto/endpoint_grpc_pb'
+} from '../proto/endpoint_grpc_pb'
 
 import commands from '../lib/commands'
 import queries from '../lib/queries'
