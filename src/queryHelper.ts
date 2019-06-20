@@ -2,8 +2,8 @@ import { Buffer } from 'buffer'
 import { sign as signQuery, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
-import { Signature } from './proto/primitive_pb'
-import * as Queries from './proto/queries_pb'
+import { Signature } from '../proto/primitive_pb'
+import * as Queries from '../proto/queries_pb'
 import { capitalize } from './util.js'
 
 const emptyQuery = () => new Queries.Query()
@@ -27,7 +27,7 @@ const getOrCreatePayload = query => query.hasPayload()
 const addQuery = (query, queryName, params) => {
   let payloadQuery = new Queries[capitalize(queryName)]()
 
-  for (let [key, value] of Object.entries(params)) {
+  for (let [key, value] of Object.entries<any>(params)) {
     const capitalizedKeyName = `set${capitalize(key)}`
     if (capitalizedKeyName === 'setPaginationMeta') {
       let paginationMeta = new Queries.TxPaginationMeta()

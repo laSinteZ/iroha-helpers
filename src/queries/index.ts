@@ -1,7 +1,6 @@
-
 import flow from 'lodash.flow'
 import queryHelper from '../queryHelper'
-import * as pbResponse from '../proto/qry_responses_pb'
+import * as pbResponse from '../../proto/qry_responses_pb'
 import { getProtoEnumName } from '../util'
 import validate from '../validate'
 

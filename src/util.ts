@@ -1,7 +1,7 @@
 import txHelper from './txHelper'
-import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
+import { TxStatus, TxStatusRequest } from '../proto/endpoint_pb'
 
-function _listToTorii (txs, txClient, timeoutLimit) {
+function _listToTorii (txs, txClient, timeoutLimit): Promise<string[]> {
   const txList = txHelper.createTxListFromArray(txs)
   return new Promise((resolve, reject) => {
     /**
@@ -23,7 +23,7 @@ function _listToTorii (txs, txClient, timeoutLimit) {
         return reject(err)
       }
 
-      const hashes = txs.map(x => txHelper.hash(x))
+      const hashes: string[] = txs.map(x => txHelper.hash(x))
       resolve(hashes)
     })
   })
@@ -35,7 +35,7 @@ function _handleStream (hash, txClient) {
   return txClient.statusStream(request)
 }
 
-function _fromStream ({ hash, txClient }, requiredStatusesStr) {
+function _fromStream ({ hash, txClient }, requiredStatusesStr): Promise<{ tx: any, error: boolean}> {
   const terminalStatuses = [
     TxStatus.STATELESS_VALIDATION_FAILED,
     TxStatus.STATEFUL_VALIDATION_FAILED,
