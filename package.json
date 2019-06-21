@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/soramitsu/iroha-helpers#readme",
   "scripts": {
-    "build": "babel src --delete-dir-on-start --out-dir lib"
+    "build": "npm run clean && tsc && npm run copyProto",
+    "clean": "npx shx rm -rf lib",
+    "copyProto": "npx shx cp -r src/proto lib"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -50,6 +52,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "grpc": "^1.19.0"
+    "grpc": "^1.19.0",
+    "shx": "^0.3.2"
   }
 }
