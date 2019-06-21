@@ -1,5 +1,3 @@
-import '@babel/polyfill'
-
 import { Buffer } from 'buffer'
 import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
