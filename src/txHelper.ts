@@ -5,7 +5,7 @@ import cloneDeep from 'lodash.clonedeep'
 import * as Commands from './proto/commands_pb'
 import { TxList } from './proto/endpoint_pb'
 import { Signature, Peer } from './proto/primitive_pb'
-import Transaction from './proto/transaction_pb'
+import * as Transaction from './proto/transaction_pb'
 import { capitalize } from './util.js'
 
 /**
