@@ -1,5 +1,5 @@
 import txHelper from './txHelper'
-import { TxStatus, TxStatusRequest } from '../proto/endpoint_pb'
+import { TxStatus, TxStatusRequest } from './proto/endpoint_pb'
 
 function _listToTorii (txs, txClient, timeoutLimit): Promise<string[]> {
   const txList = txHelper.createTxListFromArray(txs)
