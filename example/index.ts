@@ -11,6 +11,7 @@ import txHelper from '../lib/txHelper'
 
 import commands from '../lib/commands'
 import queries from '../lib/queries'
+import TxChain from '../lib/chain';
 
 const IROHA_ADDRESS = 'localhost:50051'
 
@@ -27,24 +28,37 @@ const queryService = new QueryService_v1Client(
   grpc.credentials.createInsecure()
 )
 
-const a = (name: string, params: Object, tx = txHelper.emptyTransaction()) => txHelper.addCommand(
-  tx,
-  name,
-  params
-)
+const tx = new TxChain()
+  .createTransactions()
+  .addCommand('addAssetQuantity', { assetId: 'a#a', amount: '1' })
+  .addCommand('addSignatory', {
+    accountId: 'd3@d3',
+    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+  })
+  .addMeta('test@d3', 2)
+  .sing(['f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'])
+  .send()
+
+console.log(tx.toObject().payload.reducedPayload.commandsList)
+
+// const a = (name: string, params: Object, tx = txHelper.emptyTransaction()) => txHelper.addCommand(
+//   tx,
+//   name,
+//   params
+// )
 
 // console.log(
 //   a('addAssetQuantity', { assetId: 'a#a', amount: '1' })()
 // )
 
-flow([
-  () => a('addAssetQuantity', { assetId: 'a#a', amount: '1' }),
-  (res) => a('addSignatory', {
-    accountId: 'd3@d3',
-    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
-  }, res),
-  (res) => console.log(res.toObject().payload.reducedPayload)
-])()
+// flow([
+//   () => a('addAssetQuantity', { assetId: 'a#a', amount: '1' }),
+//   (res) => a('addSignatory', {
+//     accountId: 'd3@d3',
+//     publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+//   }, res),
+//   (res) => console.log(res.toObject().payload.reducedPayload)
+// ])()
 
 // queries.fetchCommits(
 //   {
