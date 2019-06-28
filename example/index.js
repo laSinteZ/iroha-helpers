@@ -9,16 +9,19 @@ var adminPriv = 'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab7
 var commandService = new endpoint_grpc_pb_1.CommandService_v1Client(IROHA_ADDRESS, grpc.credentials.createInsecure());
 var queryService = new endpoint_grpc_pb_1.QueryService_v1Client(IROHA_ADDRESS, grpc.credentials.createInsecure());
 var tx = new chain_1["default"]()
-    .createTransactions()
-    .addCommand('addAssetQuantity', { assetId: 'a#a', amount: '1' })
-    .addCommand('addSignatory', {
-    accountId: 'd3@d3',
-    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
-})
-    .addMeta('test@d3', 2)
-    .sing(['f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'])
-    .send();
-console.log(tx.toObject().payload.reducedPayload.commandsList);
+    .cmdAddSignatory({
+    accountId: 'test@d3',
+    publicKey: '00000`'
+});
+// .addCommand('addAssetQuantity', { assetId: 'a#a', amount: '1' })
+// .addCommand('addSignatory', {
+//   accountId: 'd3@d3',
+//   publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+// })
+// .addMeta('test@d3', 2)
+// .sing(['f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'])
+// .send()
+// console.log(tx.toObject().payload.reducedPayload.commandsList)
 // const a = (name: string, params: Object, tx = txHelper.emptyTransaction()) => txHelper.addCommand(
 //   tx,
 //   name,
