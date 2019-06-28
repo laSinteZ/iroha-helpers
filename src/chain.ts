@@ -26,27 +26,27 @@ export default class TxBuilder {
     ) {
     }
 
-  cmdAddAssetQuantity (params: AddAssetQuantity.AsObject) {
+  addAssetQuantity (params: AddAssetQuantity.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'addAssetQuantity',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['assetId', 'amount'])
       )
     )
   }
 
-  cmdAddPeer (params: AddPeer.AsObject) {
+  addPeer (params: AddPeer.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'addPeer',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['address', 'peerKey'])
       )
     )
   }
 
-  cmdAddSignatory (params: AddSignatory.AsObject) {
+  addSignatory (params: AddSignatory.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -56,47 +56,47 @@ export default class TxBuilder {
     )
   }
 
-  cmdCreateAsset (params: CreateAsset.AsObject) {
+  createAsset (params: CreateAsset.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'createAsset',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['assetName', 'domainId', 'precision'])
       )
     )
   }
 
-  cmdCreateAccount (params: CreateAccount.AsObject) {
+  createAccount (params: CreateAccount.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'createAccount',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountName', 'domainId', 'publicKey'])
       )
     )
   }
 
-  cmdSetAccountDetail (params: SetAccountDetail.AsObject) {
+  setAccountDetail (params: SetAccountDetail.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'setAccountDetail',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'key', 'value'])
       )
     )
   }
 
-  cmdCreateDomain (params: CreateDomain.AsObject) {
+  createDomain (params: CreateDomain.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'createDomain',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['domainId', 'defaultRole'])
       )
     )
   }
 
-  cmdRemoveSignatory (params: RemoveSignatory.AsObject) {
+  removeSignatory (params: RemoveSignatory.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -106,82 +106,82 @@ export default class TxBuilder {
     )
   }
 
-  cmdSetAccountQuorum (params: SetAccountQuorum.AsObject) {
+  setAccountQuorum (params: SetAccountQuorum.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'setAccountQuorum',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'quorum'])
       )
     )
   }
 
-  cmdTransferAsset (params: TransferAsset.AsObject) {
+  transferAsset (params: TransferAsset.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'transferAsset',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['srcAccountId', 'destAccountId', 'assetId', 'description', 'amount'])
       )
     )
   }
 
-  cmdAppendRole (params: AppendRole.AsObject) {
+  appendRole (params: AppendRole.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'appendRole',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'roleName'])
       )
     )
   }
 
-  cmdDetachRole (params: DetachRole.AsObject) {
+  detachRole (params: DetachRole.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'detachRole',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'roleName'])
       )
     )
   }
 
-  cmdCreateRole (params: CreateRole.AsObject) {
+  createRole (params: CreateRole.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'createRole',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['roleName', 'permissionsList'])
       )
     )
   }
 
-  cmdGrantPermission (params: GrantPermission.AsObject) {
+  grantPermission (params: GrantPermission.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'grantPermission',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'permission'])
       )
     )
   }
 
-  cmdRevokePermission (params: RevokePermission.AsObject) {
+  revokePermission (params: RevokePermission.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'revokePermission',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['accountId', 'permission'])
       )
     )
   }
 
-  cmdSubtractAssetQuantity (params: SubtractAssetQuantity.AsObject) {
+  subtractAssetQuantity (params: SubtractAssetQuantity.AsObject) {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
         'subtractAssetQuantity',
-        validate(params, ['accountId', 'publicKey'])
+        validate(params, ['assetId', 'amount'])
       )
     )
   }
