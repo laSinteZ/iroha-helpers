@@ -23,7 +23,11 @@
   "scripts": {
     "build": "npm run clean && tsc && npm run copyProto",
     "clean": "npx shx rm -rf lib",
-    "copyProto": "npx shx cp -r src/proto lib"
+    "copyProto": "npx shx cp -r src/proto lib",
+    "lint" : "npx eslint . --ext .js,.ts"
+  },
+  "gitHooks": {
+    "pre-commit": "lint"
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.9.6",
@@ -44,6 +48,7 @@
     "@typescript-eslint/parser": "^1.10.2",
     "eslint": "^5.16.0",
     "grpc": "^1.21.1",
-    "shx": "^0.3.2"
+    "shx": "^0.3.2",
+    "typescript": "^3.5.2"
   }
 }

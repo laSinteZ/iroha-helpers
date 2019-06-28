@@ -3,12 +3,20 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
+  plugins: [
+    '@typescript-eslint'
+  ],
   extends: [
-    'plugin:@typescript-eslint/recommended'
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  rules: {}
+  rules: {
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2]
+  }
 }
