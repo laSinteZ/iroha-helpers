@@ -1,6 +1,6 @@
-import * as Transaction from './proto/transaction_pb'
 import txHelper from './txHelper'
-import validate from './validate'
+import validate from './validation'
+import * as Transaction from './proto/transaction_pb'
 import {
   AddSignatory,
   TransferAsset,
@@ -18,15 +18,18 @@ import {
   AppendRole,
   CreateRole,
   SubtractAssetQuantity
-} from '../lib/proto/commands_pb';
+} from './proto/commands_pb'
 
 export default class TxBuilder {
-  constructor (
-    public tx = new Transaction.Transaction()
-    ) {
-    }
+  public tx: Transaction.Transaction
 
-  addAssetQuantity (params: AddAssetQuantity.AsObject) {
+  public constructor (
+    tx = new Transaction.Transaction()
+  ) {
+    this.tx = tx
+  }
+
+  public addAssetQuantity (params: AddAssetQuantity.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -36,7 +39,7 @@ export default class TxBuilder {
     )
   }
 
-  addPeer (params: AddPeer.AsObject) {
+  public addPeer (params: AddPeer.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -46,7 +49,7 @@ export default class TxBuilder {
     )
   }
 
-  addSignatory (params: AddSignatory.AsObject) {
+  public addSignatory (params: AddSignatory.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -56,7 +59,7 @@ export default class TxBuilder {
     )
   }
 
-  createAsset (params: CreateAsset.AsObject) {
+  public createAsset (params: CreateAsset.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -66,7 +69,7 @@ export default class TxBuilder {
     )
   }
 
-  createAccount (params: CreateAccount.AsObject) {
+  public createAccount (params: CreateAccount.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -76,7 +79,7 @@ export default class TxBuilder {
     )
   }
 
-  setAccountDetail (params: SetAccountDetail.AsObject) {
+  public setAccountDetail (params: SetAccountDetail.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -86,7 +89,7 @@ export default class TxBuilder {
     )
   }
 
-  createDomain (params: CreateDomain.AsObject) {
+  public createDomain (params: CreateDomain.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -96,7 +99,7 @@ export default class TxBuilder {
     )
   }
 
-  removeSignatory (params: RemoveSignatory.AsObject) {
+  public removeSignatory (params: RemoveSignatory.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -106,7 +109,7 @@ export default class TxBuilder {
     )
   }
 
-  setAccountQuorum (params: SetAccountQuorum.AsObject) {
+  public setAccountQuorum (params: SetAccountQuorum.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -116,7 +119,7 @@ export default class TxBuilder {
     )
   }
 
-  transferAsset (params: TransferAsset.AsObject) {
+  public transferAsset (params: TransferAsset.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -126,7 +129,7 @@ export default class TxBuilder {
     )
   }
 
-  appendRole (params: AppendRole.AsObject) {
+  public appendRole (params: AppendRole.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -136,7 +139,7 @@ export default class TxBuilder {
     )
   }
 
-  detachRole (params: DetachRole.AsObject) {
+  public detachRole (params: DetachRole.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -146,7 +149,7 @@ export default class TxBuilder {
     )
   }
 
-  createRole (params: CreateRole.AsObject) {
+  public createRole (params: CreateRole.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -156,7 +159,7 @@ export default class TxBuilder {
     )
   }
 
-  grantPermission (params: GrantPermission.AsObject) {
+  public grantPermission (params: GrantPermission.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -166,7 +169,7 @@ export default class TxBuilder {
     )
   }
 
-  revokePermission (params: RevokePermission.AsObject) {
+  public revokePermission (params: RevokePermission.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -176,7 +179,7 @@ export default class TxBuilder {
     )
   }
 
-  subtractAssetQuantity (params: SubtractAssetQuantity.AsObject) {
+  public subtractAssetQuantity (params: SubtractAssetQuantity.AsObject): TxBuilder {
     return new TxBuilder(
       txHelper.addCommand(
         this.tx,
@@ -186,19 +189,22 @@ export default class TxBuilder {
     )
   }
 
-  addMeta (creatorAccountId: string, quorum: number) {
+  public addMeta (creatorAccountId: string, quorum: number): TxBuilder {
     return new TxBuilder(
       txHelper.addMeta(this.tx, { creatorAccountId, quorum })
     )
   }
 
-  sign (privateKeys) {
+  public sign (privateKeys): TxBuilder {
     return new TxBuilder(
-      privateKeys.reduce((tx, key) => txHelper.sign(tx, key), this.tx)
+      privateKeys.reduce(
+        (tx, key) => txHelper.sign(tx, key),
+        this.tx
+      )
     )
   }
 
-  send () {
+  public send () {
     return this.tx
   }
 }

@@ -1,6 +1,6 @@
 import txHelper from '../txHelper'
 import { signWithArrayOfKeys, sendTransactions } from '../util'
-import validate from '../validate'
+import validate from '../validation'
 
 const DEFAULT_OPTIONS = {
   privateKeys: [''],
@@ -32,7 +32,7 @@ function command (
 
   txToSend = signWithArrayOfKeys(txToSend, privateKeys)
 
-  let txClient = commandService
+  const txClient = commandService
 
   return sendTransactions([txToSend], txClient, timeoutLimit)
 }

@@ -24,9 +24,14 @@
     "build": "npm run clean && tsc && npm run copyProto",
     "clean": "npx shx rm -rf lib",
     "copyProto": "npx shx cp -r src/proto lib",
-    "lint": "npx eslint . --ext .js,.ts"
+    "lint": "npx eslint . --ext .ts"
   },
-
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
+  },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.9.6",
     "babel-preset-minify": "^0.5.0",
@@ -45,6 +50,11 @@
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
     "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
     "grpc": "^1.21.1",
     "husky": "^2.7.0",
     "shx": "^0.3.2",
