@@ -1,5 +1,6 @@
 import txHelper from './txHelper'
 import validate from './validation'
+import { sendTransactions } from './util'
 import * as Transaction from './proto/transaction_pb'
 import {
   AddSignatory,
@@ -20,7 +21,37 @@ import {
   SubtractAssetQuantity
 } from './proto/commands_pb'
 
-export default class TxBuilder {
+class Chain {
+  public txs: Transaction.Transaction[]
+
+  public constructor (
+    txs: Transaction.Transaction[]
+  ) {
+    this.txs = txs
+  }
+
+  public sign (privateKeys, transactionId) {
+    const signed = privateKeys.reduce(
+      (tx, key) => txHelper.sign(tx, key),
+      this.txs[transactionId]
+    )
+    const newTxs = this.txs.slice()
+    newTxs.splice(transactionId, 1, signed)
+
+    return new Chain(newTxs)
+  }
+
+  public send (commandService, timeoutLimit = 5000, statusesList = []) {
+    return sendTransactions(
+      this.txs,
+      commandService,
+      timeoutLimit,
+      statusesList
+    )
+  }
+}
+
+class TxBuilder {
   public tx: Transaction.Transaction
 
   public constructor (
@@ -124,7 +155,7 @@ export default class TxBuilder {
       txHelper.addCommand(
         this.tx,
         'transferAsset',
-        validate(params, ['srcAccountId', 'destAccountId', 'assetId', 'description', 'amount'])
+        validate(params, ['amount', 'assetId', 'description', 'destAccountId', 'srcAccountId'])
       )
     )
   }
@@ -204,7 +235,41 @@ export default class TxBuilder {
     )
   }
 
-  public send () {
-    return this.tx
+  public send (commandService, timeoutLimit = 5000, statusesList = []) {
+    return sendTransactions(
+      [this.tx],
+      commandService,
+      timeoutLimit,
+      statusesList
+    )
   }
+}
+
+class BatchBuilder {
+  public txs: Transaction.Transaction[]
+
+  public constructor (
+    txs: Transaction.Transaction[]
+  ) {
+    this.txs = txs
+  }
+
+  public addTransaction (tx: Transaction.Transaction) {
+    return new BatchBuilder([...this.txs, tx])
+  }
+
+  /**
+   * 0 - ATOMIC
+   * 1 - ORDERED
+   */
+  public setBatchMeta (type: number) {
+    return new Chain(
+      txHelper.addBatchMeta(this.txs, type)
+    )
+  }
+}
+
+export {
+  TxBuilder,
+  BatchBuilder
 }
