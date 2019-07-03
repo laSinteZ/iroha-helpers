@@ -30,7 +30,7 @@ In a `example` directory you can find `index.ts` and `chain.ts` files. These fil
 ## Node.js
 With node.js you should to create connection to iroha by using `QueryService` and `CommandService` from `endpoint_grpc_pb`. Also you should provide grpc credentials as a second argument.
 
-*IROHA_ADDRESS* - Address of iroha grpc (Usually ends on 50051) Ex. `http://localhost:50051`
+**IROHA_ADDRESS** - Address of iroha grpc (usually ends on 50051) Ex. `http://localhost:50051`
 
 ``` javascript
 import grpc from 'grpc'
@@ -48,7 +48,7 @@ const commandService = new CommandService(
 ## Browser
 With browser you should to create connection to iroha by usinb `QueryService` and `CommandService` from `endpoint_pb_service`.
 
-*IROHA_ADDRESS* - Address of grpc-web-proxy (Usually ends on 8081) Ex. `http://localhost:8081`
+**IROHA_ADDRESS** - Address of grpc-web-proxy (usually ends on 8081) Ex. `http://localhost:8081`
 
 ```javascript
 import {
