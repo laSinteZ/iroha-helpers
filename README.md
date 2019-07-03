@@ -37,7 +37,7 @@ import grpc from 'grpc'
 import {
   QueryService_v1Client as QueryService,
   CommandService_v1Client as CommandService
-} from '../iroha-helpers/lib/proto/endpoint_grpc_pb'
+} from 'iroha-helpers/lib/proto/endpoint_grpc_pb'
 
 const commandService = new CommandService(
   IROHA_ADDRESS,
@@ -64,7 +64,7 @@ const queryService = new QueryService(IROHA_ADDRESS)
 To create transaction you can call command from list of commands or create your own from scratch or use transaction builder.
 
 ``` javascript
-import { TxBuilder } from '..iroha-helpers/lib/chain'
+import { TxBuilder } from 'iroha-helpers/lib/chain'
 
 new TxBuilder()
   .createAccount({
@@ -80,7 +80,7 @@ new TxBuilder()
 
 ### Create batch
 ``` javascript
-import { TxBuilder, BatchBuilder } from '../lib/chain'
+import { TxBuilder, BatchBuilder } from 'iroha-helpers/lib/chain'
 
 const firstTx = new TxBuilder()
   .createAccount({
