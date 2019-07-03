@@ -12,7 +12,7 @@ Some functions which will help you to interact with [Hyperledger Iroha](https://
  1. Clone this repository
  2. Run Iroha http://iroha.readthedocs.io/en/latest/getting_started/
  3. Run `grpc-web-proxy` for iroha https://gitlab.com/snippets/1713665
- 4. `yarn build && node example`
+ 4. `yarn build && npx ts-node example/index.ts`
 
 ## Installation
 Using npm:
@@ -24,54 +24,92 @@ Using yarn:
 $ yarn add iroha-helpers
 ```
 
-In javascript:
+# Example
+In `example` directory you can find to files `index.ts` and `chain.ts`. These files demonstrain main features of our library. In the `chain.ts` you can find how to build transaction with several commands and how to deal with batch. 
+
+## Node.js
+With node.js you should to create connection to iroha by using `QueryService` and `CommandService` from `endpoint_grpc_pb`. Also you should provide grpc credentials as a second argument.
+
+*IROHA_ADDRESS* - Address of iroha grpc (Usually ends on 50051) Ex. `http://localhost:50051`
+
 ``` javascript
 import grpc from 'grpc'
 import {
-  QueryService_v1Client,
-  CommandService_v1Client
+  QueryService_v1Client as QueryService,
+  CommandService_v1Client as CommandService
 } from '../iroha-helpers/lib/proto/endpoint_grpc_pb'
-import { commands, queries } from 'iroha-helpers'
 
-const IROHA_ADDRESS = 'localhost:50051'
-const adminPriv =
-  'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70'
-
-const commandService = new CommandService_v1Client(
+const commandService = new CommandService(
   IROHA_ADDRESS,
   grpc.credentials.createInsecure()
 )
+```
 
-const queryService = new QueryService_v1Client(
-  IROHA_ADDRESS,
-  grpc.credentials.createInsecure()
-)
+## Browser
+With browser you should to create connection to iroha by usinb `QueryService` and `CommandService` from `endpoint_pb_service`.
 
-Promise.all([
-  commands.setAccountDetail({
-    privateKeys: [adminPriv],
-    creatorAccountId: 'admin@test',
-    quorum: 1,
-    commandService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test',
-    key: 'jason',
-    value: 'statham'
-  }),
-  queries.getAccountDetail({
-    privateKey: adminPriv,
-    creatorAccountId: 'admin@test',
-    queryService,
-    timeoutLimit: 5000
-  }, {
-    accountId: 'admin@test',
-    key: undefined,
-    writer: undefined
+*IROHA_ADDRESS* - Address of grpc-web-proxy (Usually ends on 8081) Ex. `http://localhost:8081`
+
+```javascript
+import {
+  CommandService_v1Client as CommandService,
+  QueryService_v1Client as QueryService
+} from 'iroha-helpers/lib/proto/endpoint_pb_service'
+
+const commandService = new CommandService(IROHA_ADDRESS)
+const queryService = new QueryService(IROHA_ADDRESS)
+```
+
+### Create transaction
+To create transaction you can call command from list of commands or create your own from scratch or use transaction builder.
+
+``` javascript
+import { TxBuilder } from '..iroha-helpers/lib/chain'
+
+new TxBuilder()
+  .createAccount({
+    accountName: 'user1',
+    domainId: 'test',
+    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
   })
+  .addMeta('admin@test', 1)
+  .send(commandService)
+  .then(res => console.log(res))
+  .catch(err => console.error(res))
+```
+
+### Create batch
+``` javascript
+import { TxBuilder, BatchBuilder } from '../lib/chain'
+
+const firstTx = new TxBuilder()
+  .createAccount({
+    accountName: 'user1',
+    domainId: 'test',
+    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+  })
+  .addMeta('admin@test', 1)
+  .tx
+
+const secondTx = new TxBuilder()
+  .createAccount({
+    accountName: 'user2',
+    domainId: 'test',
+    publicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+  })
+  .addMeta('admin@test', 1)
+  .tx
+
+new BatchBuilder([
+  firstTx,
+  secondTx
 ])
-  .then(a => console.log(a))
-  .catch(e => console.error(e))
+  .setBatchMeta(0)
+  .sign([adminPriv], 0)
+  .sign([adminPriv], 1)
+  .send(commandService)
+  .then(res => console.log(res))
+  .catch(err => console.error(err))
 ```
 
 ## Commands
@@ -132,8 +170,6 @@ const queryOptions = {
  - Please be careful: API might and WILL change.
 
 ## TODO
- - [ ] Field validation
  - [ ] Add tests
  - [ ] Integration tests with Iroha
  - [ ] Add more documentation
- - [ ] Minify/Uglify

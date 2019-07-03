@@ -44,4 +44,4 @@ new BatchBuilder([
   .sign([adminPriv], 1)
   .send(commandService)
   .then(res => console.log(res))
-  .catch(err => console.log(err))
+  .catch(err => console.error(err))
