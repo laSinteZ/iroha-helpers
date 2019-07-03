@@ -47,14 +47,16 @@ function validateParams (object, required) {
     )
   }
 
-  const isEquals = isEqual(
-    Object.keys(object).sort(compare),
-    required.sort(compare)
-  )
+  const keysSorted = {
+    current: Object.keys(object).sort(compare),
+    expected: required.sort(compare)
+  }
+
+  const isEquals = isEqual(keysSorted.current, keysSorted.expected)
 
   if (!isEquals) {
     throw new Error(
-      `Expected arguments: ${required}, actual: ${Object.keys(object)}`
+      `Expected arguments: ${keysSorted.expected}, actual: ${keysSorted.current}`
     )
   }
 
