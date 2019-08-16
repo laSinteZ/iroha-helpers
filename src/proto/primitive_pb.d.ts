@@ -51,6 +51,30 @@ export namespace Peer {
   }
 }
 
+export class AccountDetailRecordId extends jspb.Message {
+  getWriter(): string;
+  setWriter(value: string): void;
+
+  getKey(): string;
+  setKey(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AccountDetailRecordId.AsObject;
+  static toObject(includeInstance: boolean, msg: AccountDetailRecordId): AccountDetailRecordId.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: AccountDetailRecordId, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AccountDetailRecordId;
+  static deserializeBinaryFromReader(message: AccountDetailRecordId, reader: jspb.BinaryReader): AccountDetailRecordId;
+}
+
+export namespace AccountDetailRecordId {
+  export type AsObject = {
+    writer: string,
+    key: string,
+  }
+}
+
 export interface RolePermissionMap {
   CAN_APPEND_ROLE: 0;
   CAN_CREATE_ROLE: 1;
@@ -58,6 +82,7 @@ export interface RolePermissionMap {
   CAN_ADD_ASSET_QTY: 3;
   CAN_SUBTRACT_ASSET_QTY: 4;
   CAN_ADD_PEER: 5;
+  CAN_REMOVE_PEER: 46;
   CAN_ADD_SIGNATORY: 6;
   CAN_REMOVE_SIGNATORY: 7;
   CAN_SET_QUORUM: 8;
@@ -92,6 +117,7 @@ export interface RolePermissionMap {
   CAN_GET_MY_TXS: 35;
   CAN_GET_ALL_TXS: 36;
   CAN_GET_BLOCKS: 42;
+  CAN_GET_PEERS: 45;
   CAN_GRANT_CAN_SET_MY_QUORUM: 37;
   CAN_GRANT_CAN_ADD_MY_SIGNATORY: 38;
   CAN_GRANT_CAN_REMOVE_MY_SIGNATORY: 39;
