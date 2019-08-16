@@ -375,6 +375,26 @@ function transferAsset (commandOptions, params) {
   )
 }
 
+/**
+ * removePeer
+ * @param {Object} commandOptions
+ * @param {Object} args
+ * @property {String} args.publicKey
+ * @link https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer
+ */
+function removePeer (commandOptions, { publicKey }) {
+  return command(
+    commandOptions,
+    txHelper.addCommand(
+      txHelper.emptyTransaction(),
+      'removePeer',
+      {
+        publicKey
+      }
+    )
+  )
+}
+
 export default {
   addAssetQuantity,
   addPeer,
@@ -393,5 +413,6 @@ export default {
   setAccountDetail,
   setAccountQuorum,
   substractAssetQuantity,
-  transferAsset
+  transferAsset,
+  removePeer
 }
