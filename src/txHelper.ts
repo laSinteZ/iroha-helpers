@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer'
+import { Buffer as BF } from 'buffer'
 import { sign as signTransaction, derivePublicKey } from 'ed25519.js'
 import { sha3_256 as sha3 } from 'js-sha3'
 import cloneDeep from 'lodash.clonedeep'
@@ -100,7 +100,9 @@ const addMeta = (transaction, { creatorAccountId, createdTime = Date.now(), quor
  * @param {Object} transaction base transaction
  * @returns {Buffer} transaction hash
  */
-const hash = transaction => Buffer.from(sha3.array(transaction.getPayload().serializeBinary()))
+const hash = transaction => {
+  return BF.from(sha3.array(transaction.getPayload().serializeBinary()))
+}
 
 /**
  * Returns new transaction with one more signature
