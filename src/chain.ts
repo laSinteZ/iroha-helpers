@@ -18,7 +18,9 @@ import {
   CreateDomain,
   AppendRole,
   CreateRole,
-  SubtractAssetQuantity
+  SubtractAssetQuantity,
+  CompareAndSetAccountDetail,
+  RemovePeer
 } from './proto/commands_pb'
 
 class Chain {
@@ -216,6 +218,26 @@ class TxBuilder {
         this.tx,
         'subtractAssetQuantity',
         validate(params, ['assetId', 'amount'])
+      )
+    )
+  }
+
+  public compareAndSetAccountDetail (params: CompareAndSetAccountDetail.AsObject): TxBuilder {
+    return new TxBuilder(
+      txHelper.addCommand(
+        this.tx,
+        'compareAndSetAccountDetail',
+        validate(params, ['accountId', 'key', 'value', 'oldValue'])
+      )
+    )
+  }
+
+  public removePeer (params: RemovePeer.AsObject): TxBuilder {
+    return new TxBuilder(
+      txHelper.addCommand(
+        this.tx,
+        'removePeer',
+        validate(params, ['publicKey'])
       )
     )
   }

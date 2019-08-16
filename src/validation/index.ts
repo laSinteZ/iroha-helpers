@@ -24,6 +24,7 @@ const schema = {
   defaultRole: checks.checkRoleName,
   key: checks.checkAccountDetailsKey,
   value: checks.checkAccountDetailsValue,
+  oldValue: checks.checkAccountDetailsValue,
   roleId: checks.checkRoleName,
   writer: checks.checkAccountId,
 
