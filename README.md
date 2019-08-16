@@ -1,7 +1,7 @@
 
 [![npm version](https://img.shields.io/npm/v/iroha-helpers.svg)](https://www.npmjs.com/package/iroha-helpers)
 [![minified size](https://badgen.net/bundlephobia/min/iroha-helpers)](https://badgen.net/bundlephobia/min/iroha-helpers)
-[![Iroha 1.0.1](https://img.shields.io/badge/Iroha-1.0.1-green.svg)](https://github.com/hyperledger/iroha/releases/tag/1.0.1)
+[![Iroha 1.1.0](https://img.shields.io/badge/Iroha-1.0.1-green.svg)](https://github.com/hyperledger/iroha/releases/tag/1.1.0)
 
 # iroha-helpers
 
@@ -140,6 +140,8 @@ const commandOptions = {
 - [x] [setAccountQuorum](https://iroha.readthedocs.io/en/latest/api/commands.html#set-account-quorum)
 - [x] [substractAssetQuantity](https://iroha.readthedocs.io/en/latest/api/commands.html#subtract-asset-quantity)
 - [x] [transferAsset](https://iroha.readthedocs.io/en/latest/api/commands.html#transfer-asset)
+- [x] [сompareAndSetAccountDetail](https://iroha.readthedocs.io/en/latest/api/commands.html#compare-and-set-account-detail)
+- [x] [removePeer](https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer)
 
 ## Queries
 For usage of any query you need to provide `queryOptions` as a first argument.
@@ -153,6 +155,7 @@ const queryOptions = {
 ```
 
 - [x] [getAccount](https://iroha.readthedocs.io/en/latest/api/queries.html#get-account)
+- [x] [getBlock](https://iroha.readthedocs.io/en/latest/api/queries.html#get-block)
 - [x] [getSignatories](https://iroha.readthedocs.io/en/latest/api/queries.html#get-signatories)
 - [x] [getTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-transactions)
 - [x] [getPendingTransactions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-pending-transactions)
@@ -163,7 +166,7 @@ const queryOptions = {
 - [x] [getAssetInfo](https://iroha.readthedocs.io/en/latest/api/queries.html#get-asset-info)
 - [x] [getRoles](https://iroha.readthedocs.io/en/latest/api/queries.html#get-roles)
 - [x] [getRolePermissions](https://iroha.readthedocs.io/en/latest/api/queries.html#get-role-permissions)
-- [x] [getBlock](https://iroha.readthedocs.io/en/latest/api/queries.html#get-block)
+- [x] [getPeers](https://iroha.readthedocs.io/en/latest/api/commands.html#remove-peer)
 - [x] [fetchCommits](https://iroha.readthedocs.io/en/latest/api/queries.html#fetchcommits)
 
 ## Known issues
