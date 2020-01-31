@@ -413,6 +413,5 @@ export default {
   setAccountDetail,
   setAccountQuorum,
   substractAssetQuantity,
-  transferAsset,
-  removePeer
+  transferAsset
 }
