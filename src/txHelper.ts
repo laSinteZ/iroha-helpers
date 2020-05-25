@@ -62,7 +62,7 @@ const addCommand = (transaction, commandName, params) => {
   const payload = getOrCreatePayload(transaction)
   const reducedPayload = getOrCreateReducedPayload(payload)
 
-  reducedPayload.addCommands(command, reducedPayload.getCommandsList.length)
+  reducedPayload.addCommands(command, reducedPayload.getCommandsList().length)
   payload.setReducedPayload(reducedPayload)
 
   const txWithCommand = cloneDeep(transaction)
